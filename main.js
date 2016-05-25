@@ -16,8 +16,8 @@ const DB = {
     },
     init() {
         firebaseDB.ref('/').on('value', data => {
-            this.data = JSON.stringify(data.val());
-            document.getElementById('data').innerHTML = this.data;
+            this.data = Immutable.Map(data.val());
+            document.getElementById('data').innerHTML = JSON.stringify(this.data);
         });
     }
 };
@@ -25,9 +25,7 @@ const DB = {
 DB.init();
 
 function getBPMRange(start, end) {
-    // return tracks within bpm range
-    const dataMap = Immutable.Map(DB.data);
-    return dataMap.filter(x => start <= x && x <= end);
+    return DB.data.filter(v => start <= v && v <= end);
 }
 
 const title = document.querySelector('#title');
@@ -38,7 +36,7 @@ document.querySelector('#refresh').addEventListener('click', () => beats = []);
 
 document.querySelector('#submit').addEventListener('click', saveHandler);
 
-document.querySelector('#range').addEventListener('click', () => console.log(getBPMRange(100, 500)));
+document.querySelector('#range').addEventListener('click', () => console.log(DB.data, getBPMRange(100, 500)));
 
 function clickHandler() {
     let beat = new Date().getTime() / 1000;
