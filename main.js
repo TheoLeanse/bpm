@@ -38,10 +38,14 @@ document.querySelector('#submit').addEventListener('click', saveHandler);
 
 document.querySelector('#range').addEventListener('click', () => console.log(DB.data, getBPMRange(100, 500)));
 
+const similarTracks = document.querySelector('#similar');
+
 function clickHandler() {
     let beat = new Date().getTime() / 1000;
     beats.push(beat);
-    this.innerHTML = BPM(beats);
+    const bpm = BPM(beats);
+    this.innerHTML = bpm;
+    similarTracks.innerHTML = getBPMRange(bpm - 5, bpm + 5);
 }
 
 function BPM(beatlist) {
