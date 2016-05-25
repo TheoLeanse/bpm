@@ -50,7 +50,8 @@ function clickHandler() {
 function BPM(beatlist) {
     const count = beatlist.length - 1;
     const time = beatlist[count] - beatlist[0];
-    return count / time * 60;
+    const tempo = count / time * 60;
+    return tempo.toFixed(1);
 }
 
 function saveHandler() {
