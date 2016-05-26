@@ -9,18 +9,29 @@ const refresher     = document.querySelector('#refresh');
 const dataDisplay   = document.querySelector('#data');
 const similarTracks = document.querySelector('#similar');
 
-DB.init().then(data => dataDisplay.innerHTML = data);
+DB.init().then(data => dataDisplay.innerHTML = prettyPrint(data));
 
 submit.addEventListener('click', () => DB.save(title.value, BPM(beats)));
 refresher.addEventListener('click', () => beats = []);
 
 counters.forEach(counter => counter.addEventListener('click', () => {
-    let beat = new Date().getTime() / 1000;
+    const beat = new Date().getTime() / 1000;
     beats.push(beat);
+
     const bpm = BPM(beats);
     display.innerHTML = bpm;
-    similarTracks.innerHTML = getBPMRange(bpm - 5, bpm + 5);
+
+    const similar = getBPMRange(bpm - 5, bpm + 5);
+    similarTracks.innerHTML = prettyPrint(similar);
 }));
+
+function prettyPrint (object) {
+    let string = JSON.stringify(object);
+    string = string.replace(/{/g, '<ul><li>');
+    string = string.replace(/,/g, '</li><li>');
+    string = string.replace(/}/g, '</li></ul>');
+    return string;
+}
 
 function BPM (beatlist) {
     const count = beatlist.length - 1;
@@ -30,7 +41,14 @@ function BPM (beatlist) {
 }
 
 function getBPMRange (start, end) {
-    return DB.data.filter(v => start <= v && v <= end);
+    let songs = {};
+    for (var song in DB.data) {
+        let v = DB.data[song];
+        if (start <= v && v <= end) {
+            songs[song] = v;
+        }
+    }
+    return songs;
 }
 
 function firebaseManager () {
@@ -49,8 +67,8 @@ function firebaseManager () {
         init () {
             return new Promise(resolve => {
                 firebaseDB.ref('/').on('value', data => {
-                    this.data = Immutable.Map(data.val());
-                    resolve(JSON.stringify(this.data));
+                    this.data = data.val();
+                    resolve(this.data);
                 });
             });
         }
