@@ -1,3 +1,7 @@
 body {
-  background: papayawhip;
+  background: white;
+}
+.counter button {
+  height: 50vh;
+  width: 100%;
 }
