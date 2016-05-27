@@ -18,7 +18,7 @@ counters.forEach(counter => counter.addEventListener('click', () => {
     beats.push(beat);
 
     const bpm = BPM(beats);
-    if (bpm) display.innerHTML = bpm;
+    display.innerHTML = bpm ? bpm : '...';
 
     const similar = range(DB.data, bpm - 5, bpm + 5);
     similarTracks.innerHTML = ObjToUL(similar);
