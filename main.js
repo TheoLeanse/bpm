@@ -9,46 +9,56 @@ const refresher     = document.querySelector('#refresh');
 const dataDisplay   = document.querySelector('#data');
 const similarTracks = document.querySelector('#similar');
 
-DB.init().then(data => dataDisplay.innerHTML = prettyPrint(data));
+DB.init().then(data => dataDisplay.innerHTML = ObjToUL(data));
 
 submit.addEventListener('click', () => DB.save(title.value, BPM(beats)));
-refresher.addEventListener('click', () => beats = []);
 
 counters.forEach(counter => counter.addEventListener('click', () => {
     const beat = new Date().getTime() / 1000;
     beats.push(beat);
 
     const bpm = BPM(beats);
-    display.innerHTML = bpm;
+    if (bpm) display.innerHTML = bpm;
 
-    const similar = getBPMRange(bpm - 5, bpm + 5);
-    similarTracks.innerHTML = prettyPrint(similar);
+    const similar = range(DB.data, bpm - 5, bpm + 5);
+    similarTracks.innerHTML = ObjToUL(similar);
 }));
 
-function prettyPrint (object) {
-    let string = JSON.stringify(object);
-    string = string.replace(/{/g, '<ul><li>');
-    string = string.replace(/,/g, '</li><li>');
-    string = string.replace(/}/g, '</li></ul>');
-    return string;
-}
+[submit, refresher]
+    .forEach(el => el.addEventListener('click', reset));
 
 function BPM (beatlist) {
     const count = beatlist.length - 1;
     const time  = beatlist[count] - beatlist[0];
-    const tempo = count / time * 60;
-    return parseFloat(tempo.toFixed(1));
+    return parseInt(count / time * 60);
 }
 
-function getBPMRange (start, end) {
-    let songs = {};
-    for (var song in DB.data) {
-        let v = DB.data[song];
-        if (start <= v && v <= end) {
-            songs[song] = v;
-        }
-    }
-    return songs;
+function reset () {
+    beats = [];
+    display.innerHTML = similarTracks.innerHTML = 'Click to begin';
+}
+
+function ObjToUL (object) {
+    return JSON.stringify(object)
+        .replace(/{/g, '<ul><li>')
+        .replace(/,/g, '</li><li>')
+        .replace(/}/g, '</li></ul>');
+}
+
+function ascending (input) {
+    let output = {};
+    Object.keys(input)
+        .sort((a, b) => input[a] - input[b])
+        .forEach(key => output[key] = input[key]);
+    return output;
+}
+
+function range (data, start, end) {
+    let output = {};
+    Object.keys(data)
+        .filter(key => start <= data[key] && data[key] <= end)
+        .forEach(key => output[key] = data[key]);
+    return output;
 }
 
 function firebaseManager () {
@@ -61,16 +71,16 @@ function firebaseManager () {
     firebase.initializeApp(firebaseConfig);
     const firebaseDB = firebase.database();
     return {
-        save (title, bpm) {
-            firebaseDB.ref('/' + title).set(bpm);
-        },
         init () {
             return new Promise(resolve => {
                 firebaseDB.ref('/').on('value', data => {
-                    this.data = data.val();
+                    this.data = ascending(data.val());
                     resolve(this.data);
                 });
             });
+        },
+        save (title, bpm) {
+            firebaseDB.ref('/' + title).set(bpm);
         }
     };
 }
