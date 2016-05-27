@@ -1,5 +1,6 @@
 body {
   background: white;
+  font-family: monospace;
 }
 .counter button {
   height: 50vh;
