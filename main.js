@@ -35,7 +35,8 @@ function BPM (beatlist) {
 
 function reset () {
     beats = [];
-    display.innerHTML = similarTracks.innerHTML = 'Click to begin';
+    display.innerHTML = 'Click to begin';
+    similarTracks.innerHTML = '';
 }
 
 function ObjToUL (object) {
