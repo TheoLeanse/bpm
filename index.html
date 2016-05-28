@@ -8,22 +8,20 @@
     </head>
     <body>
         <header>
-            ☮
+            <span id="refresh">
+                ☮
+            </span>
         </header>
 
 
         <section id="" class="counter">
-            <button></button>
+            <button><p id="display"></p></button>
         </section>
 
         <div class="page-body">
             <section id="info" class="counter">
-                <h1>BPM:</h1>
-                <ul><li>
-                    <p id="display">Click to begin</p>
-                </li></ul>
-                <h1>Similar tempo:</h1>
-                <div id="similar"><ul><li>...</li></ul></div>
+                <h1>Similar to:</h1>
+                <div id="similar"><ul><li></li></ul></div>
             </section>
 
             <section id="save">
@@ -43,9 +41,6 @@
                 </div>
             </section>
 
-            <section>
-                <button id="refresh">Refresh</button>
-            </section>
         </div>
         <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
         <script src="main.js"></script>
