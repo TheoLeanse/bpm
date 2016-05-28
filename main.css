@@ -3,13 +3,15 @@ html, button, input {
 }
 
 body {
-  background: white;
+  background: whitesmoke;
   max-width: 590px;
   position: relative;
 }
 .counter button {
   height: 25vh;
   width: 100%;
+  background-color: silver;
+  outline: none;
 }
 
 input {
