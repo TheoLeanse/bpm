@@ -47,19 +47,21 @@ function ObjToUL (object) {
 }
 
 function ascending (input) {
-    let output = {};
-    Object.keys(input)
+    return Object.keys(input)
         .sort((a, b) => input[a] - input[b])
-        .forEach(key => output[key] = input[key]);
-    return output;
+        .reduce((output, key) => {
+            output[key] = input[key];
+            return output;
+        }, {});
 }
 
-function range (data, start, end) {
-    let output = {};
-    Object.keys(data)
-        .filter(key => start <= data[key] && data[key] <= end)
-        .forEach(key => output[key] = data[key]);
-    return output;
+function range (input, start, end) {
+    return Object.keys(input)
+        .filter(key => start <= input[key] && input[key] <= end)
+        .reduce((output, key) => {
+            output[key] = input[key];
+            return output;
+        }, {});
 }
 
 function firebaseManager () {
