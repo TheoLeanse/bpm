@@ -5,13 +5,17 @@ html, button, input {
 body {
   background: whitesmoke;
   max-width: 590px;
+}
+
+.page-body {
   position: relative;
 }
 .counter button {
   height: 25vh;
   width: 100%;
-  background-color: silver;
   outline: none;
+  background: url('images/c4.png') #EAE9E9 no-repeat center;
+  background-size: contain;
 }
 
 input {
@@ -25,5 +29,5 @@ input {
 
 #refresh {
   position: absolute;
-  top: 10px; right: 10px;
+  top: 0; right: 0;
 }
