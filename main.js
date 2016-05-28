@@ -6,14 +6,16 @@ const title         = document.querySelector('#title');
 const submit        = document.querySelector('#titleform');
 const remove        = document.querySelector('.jsRemove');
 const display       = document.querySelector('#display');
-const counters      = Array.from(document.querySelectorAll('.counter'));
+const counter       = document.querySelector('.counter');
 const refresher     = document.querySelector('#refresh');
 const dataDisplay   = document.querySelector('#data');
 const similarTracks = document.querySelector('#similar');
 
 DB.init().then(data => dataDisplay.innerHTML = ObjToUL(data));
 
-counters.forEach(counter => counter.addEventListener('click', () => {
+const source = Rx.Observable.fromEvent(counter, 'click');
+
+counter.addEventListener('click', () => {
     const beat = new Date().getTime() / 1000;
     beats.push(beat);
 
@@ -22,7 +24,7 @@ counters.forEach(counter => counter.addEventListener('click', () => {
 
     const similar = range(DB.data, bpm - 5, bpm + 5);
     similarTracks.innerHTML = ObjToUL(similar);
-}));
+});
 
 submit.addEventListener('submit', e => {
     e.preventDefault();
