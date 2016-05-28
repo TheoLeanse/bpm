@@ -24,7 +24,8 @@ counters.forEach(counter => counter.addEventListener('click', () => {
     similarTracks.innerHTML = ObjToUL(similar);
 }));
 
-submit.addEventListener('submit', () => {
+submit.addEventListener('submit', e => {
+    e.preventDefault();
     DB.save(title.value, BPM(beats));
     reset();
 });
