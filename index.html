@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <title>BPM</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <header>
+            ☮
+        </header>
+
+
+        <section id="" class="counter">
+            <button></button>
+        </section>
+
+        <div class="page-body">
+            <section id="info" class="counter">
+                <h1>BPM:</h1>
+                <ul><li>
+                    <p id="display">Click to begin</p>
+                </li></ul>
+                <h1>Similar tempo:</h1>
+                <div id="similar"><ul><li>...</li></ul></div>
+            </section>
+
+            <section id="save">
+                <label for="title"><h1>Song ID:</h1></label>
+                <form id="titleform">
+                    <input id="title" type="text"/>
+                    <input type="submit" value="Add this song to the database" class="link" />
+                </form>
+            </section>
+
+            <section class="section">
+                <h1>All songs:</h1>
+                <p id="data" class="jsRemove">...</p>
+                <div class="edit">
+                    <label for="edit">Edit mode:</label>
+                    <input type="checkbox" id="edit" />
+                </div>
+            </section>
+
+            <section>
+                <button id="refresh">Refresh</button>
+            </section>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+        <script src="main.js"></script>
+
+    </body>
+</html>
