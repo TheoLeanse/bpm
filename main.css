@@ -14,8 +14,8 @@ body {
   height: 25vh;
   width: 100%;
   outline: none;
-  background: url('images/c4.png') #EAE9E9 no-repeat center;
-  background-size: contain;
+  background: #EAE9E9;
+  font-size: 4em;
 }
 
 input {
