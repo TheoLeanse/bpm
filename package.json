@@ -1,0 +1,29 @@
+{
+  "name": "bpm-backup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheoLeanse/bpm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheoLeanse/bpm/issues"
+  },
+  "homepage": "https://github.com/TheoLeanse/bpm#readme"
+}

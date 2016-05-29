@@ -11,6 +11,19 @@ const refresher     = document.querySelector('#refresh');
 const dataDisplay   = document.querySelector('#data');
 const similarTracks = document.querySelector('#similar');
 
+const App = React.createClass({
+    render() {
+        return (
+                <Counter />
+                <Tracklist />
+                <Form />
+                <Tracklist />
+        );
+    }
+});
+ReactDOM.render(App, document.querySelector('.app'));
+
+
 DB.init().then(data => dataDisplay.innerHTML = ObjToUL(data));
 
 counters.forEach(counter => counter.addEventListener('click', () => {
