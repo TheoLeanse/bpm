@@ -1,5 +1,9 @@
 'use strict';
-let beats           = [];
+
+import firebase from 'firebase';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 const DB            = firebaseManager();
 const edit          = document.querySelector('#edit');
 const title         = document.querySelector('#title');
@@ -11,17 +15,15 @@ const refresher     = document.querySelector('#refresh');
 const dataDisplay   = document.querySelector('#data');
 const similarTracks = document.querySelector('#similar');
 
+let beats = [];
+
 const App = React.createClass({
     render() {
-        return (
-                <Counter />
-                <Tracklist />
-                <Form />
-                <Tracklist />
-        );
+        return <p>y</p>;
     }
 });
-ReactDOM.render(App, document.querySelector('.app'));
+
+ReactDOM.render(<App />, document.querySelector('.app'));
 
 
 DB.init().then(data => dataDisplay.innerHTML = ObjToUL(data));
