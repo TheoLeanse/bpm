@@ -26,7 +26,7 @@ counters.forEach(counter => counter.addEventListener('click', () => {
 
 submit.addEventListener('submit', e => {
     e.preventDefault();
-    DB.save(title.value, BPM(beats));
+    if (title.value) DB.save(title.value, BPM(beats));
     reset();
 });
 
