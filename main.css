@@ -1,0 +1,56 @@
+html, button, input {
+  font-family: monospace;
+}
+
+body {
+  background: whitesmoke;
+  max-width: 590px;
+}
+
+.page-body {
+  position: relative;
+}
+.counter button {
+  height: 25vh;
+  width: 100%;
+  outline: none;
+  background: #EAE9E9;
+}
+header {
+  font-size: 3.5em;
+}
+
+#save input[type=text] {
+  display: block;
+  width: 100%;
+  font-size: 1.5em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.section {
+  position: relative;
+}
+
+#refresh {
+  cursor: pointer;
+}
+
+.edit {
+  position: absolute;
+  top: 0; right: 0;
+}
+
+.link {
+  background: none;
+  cursor: pointer;
+  border: none;
+  text-decoration: underline;
+  font-size: 15px;
+  color: blue;
+}
+
+#display {
+  font-size: 5em;
+}
