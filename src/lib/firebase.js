@@ -13,18 +13,18 @@ firebase.initializeApp(firebaseConfig);
 const firebaseDB = firebase.database();
 
 export default {
-    init () {
+    init(user) {
         return new Promise(resolve => {
-            firebaseDB.ref('/').on('value', data => {
+            firebaseDB.ref('/' + user).on('value', data => {
                 this.data = ascending(data.val());
                 resolve(this.data);
             });
         });
     },
-    save (title, bpm) {
-        firebaseDB.ref('/' + title).set(bpm);
+    save(user, title, bpm) {
+        firebaseDB.ref('/' + user + '/' + title).set(bpm);
     },
-    remove(title) {
-        firebaseDB.ref('/' + title).remove();
+    remove(user, title) {
+        firebaseDB.ref('/' + user + '/' + title).remove();
     }
 };
