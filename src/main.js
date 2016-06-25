@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import firebase from 'firebase';
+import DB from './lib/firebase';
 
-const DB            = firebaseManager();
 const edit          = document.querySelector('#edit');
 const title         = document.querySelector('#title');
 const submit        = document.querySelector('#titleform');
@@ -23,7 +22,6 @@ const App = React.createClass({
 
 ReactDOM.render(<App />, document.querySelector('.app'));
 
-
 DB.init().then(data => dataDisplay.innerHTML = ObjToUL(data));
 
 counters.forEach(counter => counter.addEventListener('click', () => {
@@ -39,7 +37,7 @@ counters.forEach(counter => counter.addEventListener('click', () => {
 
 submit.addEventListener('submit', e => {
     e.preventDefault();
-    DB.save(title.value, BPM(beats));
+    if (title.value) DB.save(title.value, BPM(beats));
     reset();
 });
 
@@ -75,15 +73,6 @@ function ObjToUL (object) {
         .replace(/}/g, '</li></ul>');
 }
 
-function ascending (input) {
-    return Object.keys(input)
-        .sort((a, b) => input[a] - input[b])
-        .reduce((output, key) => {
-            output[key] = input[key];
-            return output;
-        }, {});
-}
-
 function range (input, start, end) {
     return Object.keys(input)
         .filter(key => start <= input[key] && input[key] <= end)
@@ -91,31 +80,4 @@ function range (input, start, end) {
             output[key] = input[key];
             return output;
         }, {});
-}
-
-function firebaseManager () {
-    const firebaseConfig = {
-        apiKey:        "AIzaSyBB6HN_A8AWdm7QaGAaXOMtsWH1cSSZFjs",
-        authDomain:    "beatlister.firebaseapp.com",
-        databaseURL:   "https://beatlister.firebaseio.com",
-        storageBucket: "beatlister.appspot.com"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const firebaseDB = firebase.database();
-    return {
-        init () {
-            return new Promise(resolve => {
-                firebaseDB.ref('/').on('value', data => {
-                    this.data = ascending(data.val());
-                    resolve(this.data);
-                });
-            });
-        },
-        save (title, bpm) {
-            firebaseDB.ref('/' + title).set(bpm);
-        },
-        remove(title) {
-            firebaseDB.ref('/' + title).remove();
-        }
-    };
 }
